@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produto;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -13,7 +14,12 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        //
+        // listar todos os produtos
+        $produtos = Produto::orderBy('nome', 'ASC')->get();
+
+        //dd($produtos);
+        return view('produto.index', ['produtos' => $produtos]);
+
     }
 
     /**
@@ -23,7 +29,7 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        //
+         //
     }
 
     /**
