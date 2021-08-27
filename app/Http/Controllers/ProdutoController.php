@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produto;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -13,7 +14,11 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        //
+        // listar todos os produtos
+        $produtos = Produto::orderBy('nome', 'ASC')->get();
+
+        //dd($produtos);
+        return view('produto.index', ['produtos' => $produtos]);
     }
 
     /**
@@ -23,7 +28,10 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        //
+        
+        return view('produto.create');
+       // dd('create');
+
     }
 
     /**
@@ -34,7 +42,15 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //$data = $request->all();
+        // dd($data);
+ 
+        $produto = new Produto;
+        $produto->nome = $request->nome;
+        $produto->descricao = $request->descricao;
+        $produto->save();
+ 
+        return redirect()->route('produto.index')->with('message', 'Produto criado com sucesso!');
     }
 
     /**
