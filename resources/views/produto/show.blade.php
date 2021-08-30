@@ -17,6 +17,5 @@
     <li>Última modificação:   {{ Carbon\Carbon::parse($produto->update_at)->format('d/m/Y H:i') }} </li>
 </ul>
  
- 
 </body>
 </html>

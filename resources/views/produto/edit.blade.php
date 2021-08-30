@@ -33,6 +33,5 @@
  
     {{ Form::close() }}
  
- 
 </body>
 </html>

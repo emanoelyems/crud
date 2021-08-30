@@ -135,7 +135,7 @@ class ProdutoController extends Controller
         // dd('DESTROY');
         $produto = Produto::findOrFail($id);
         $produto->delete();
- 
+        
         return redirect()->route('produto.index')->with('message', 'Produto excluído com sucesso!');
     }
 }

@@ -32,8 +32,5 @@
  
     {{ Form::close() }}
  
-    
- 
- 
 </body>
 </html>
