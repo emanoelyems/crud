@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produto;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -13,7 +14,11 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        //
+         // listar todos os produtos
+         $produtos = Produto::orderBy('nome', 'ASC')->get();
+        
+         //dd($produtos);
+         return view('produto.index', ['produtos' => $produtos]);
     }
 
     /**
@@ -23,7 +28,7 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        //
+        return view('produto.create');
     }
 
     /**
@@ -34,7 +39,23 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //$data = $request->all();
+        //dd($data);
+        $message = [
+            'nome.required' => 'O campo nome é obrigatório!',
+            'nome.min' => 'O campo nome precisa ter no mínimo :min caracteres!',
+            'descricao.required' => 'O campo descrição é obrigatório!',
+        ];
+        $validateData = $request->validate([
+            'nome'      => 'required|min:7',
+            'descricao' => 'required',
+        ], $message);
+        $produto = new Produto;
+        $produto->nome      = $request->nome;
+        $produto->descricao = $request->descricao;
+        $produto->save();
+        return redirect()->route('produto.index')->with('message', 'Produto criado com sucesso!');
+
     }
 
     /**
@@ -46,6 +67,7 @@ class ProdutoController extends Controller
     public function show($id)
     {
         //
+
     }
 
     /**
@@ -56,7 +78,7 @@ class ProdutoController extends Controller
      */
     public function edit($id)
     {
-        //
+        // 
     }
 
     /**
@@ -70,13 +92,15 @@ class ProdutoController extends Controller
     {
         //
     }
+        
 
-    /**
+     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Produto  $produto
      * @return \Illuminate\Http\Response
-     */
+     */  
+
     public function destroy($id)
     {
         //
